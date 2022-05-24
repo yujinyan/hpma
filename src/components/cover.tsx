@@ -11,7 +11,7 @@ type Props = {
     }
   }
 }
-const Border = tw.span`bg-slate-50 z-10 absolute`;
+const Border = tw.span`bg-slate-50 z-10 absolute opacity-50`;
 const HorizontalBorder = tw(Border)`w-full h-px left-0`;
 const VerticalBorder = tw(Border)`h-full w-px top-0`;
 
@@ -44,7 +44,7 @@ const Cover = ({ title, cover, slug }: Props) => <div key={slug} tw="relative">
                tw="aspect-[4/3] w-full"
                alt={title} />
   <GradientOverlay />
-  <h2 tw="absolute left-0 right-0 bottom-[20px] w-full text-white text-center text-4xl">{title}</h2>
+  <h2 tw="font-display absolute left-0 right-0 bottom-[20px] w-full text-white text-center text-4xl">{title}</h2>
 </div>;
 
 export default Cover;
