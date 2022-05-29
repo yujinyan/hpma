@@ -1,6 +1,7 @@
 import * as React from "react";
 import tw from "twin.macro";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
+import { Link } from "gatsby";
 
 type Props = {
   title: string
@@ -37,14 +38,16 @@ bg-gradient-to-t from-neutral-900 to-transparent opacity-75
 `;
 
 const Cover = ({ title, cover, slug }: Props) => <div key={slug} tw="relative">
-  <AnimatedBorder />
-  <GatsbyImage image={cover.childImageSharp.gatsbyImageData}
-               objectFit="cover"
-               objectPosition="center center"
-               tw="aspect-[4/3] w-full"
-               alt={title} />
-  <GradientOverlay />
-  <h2 tw="font-display absolute left-0 right-0 bottom-[20px] w-full text-white text-center text-4xl">{title}</h2>
+  <Link to={slug}>
+    <AnimatedBorder />
+    <GatsbyImage image={cover.childImageSharp.gatsbyImageData}
+                 objectFit="cover"
+                 objectPosition="center center"
+                 tw="aspect-[4/3] w-full"
+                 alt={title} />
+    <GradientOverlay />
+    <h2 tw="font-display absolute left-0 right-0 bottom-[20px] w-full text-white text-center text-4xl">{title}</h2>
+  </Link>
 </div>;
 
 export default Cover;
