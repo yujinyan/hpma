@@ -1,6 +1,8 @@
 import * as React from "react";
-import { IGatsbyImageData } from "gatsby-plugin-image";
-import { graphql } from "gatsby";
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
+import { graphql, Link } from "gatsby";
+import Cover from "../components/cover";
+import tw from "twin.macro";
 
 type ProjectProps = {
   data: {
@@ -13,9 +15,7 @@ type ProjectProps = {
       areas: string[]
       cover: {
         childImageSharp: {
-          resize: {
-            src: string
-          }
+          gatsbyImageData: IGatsbyImageData
         }
       }
     }
@@ -26,6 +26,11 @@ type ProjectProps = {
           gatsbyImageData: IGatsbyImageData
         }
       }[]
+    }
+    avatar: {
+      childImageSharp: {
+        gatsbyImageData: IGatsbyImageData
+      }
     }
   }
   pageContext: {
@@ -56,15 +61,33 @@ type ProjectProps = {
   }
   [key: string]: any
 }
-const Project = ({ data: { project, images }, pageContext: { prev, next } }: ProjectProps) => {
+
+const Container = tw.div``;
+
+
+const Project = ({ data: { project, images, avatar }, pageContext: { prev, next } }: ProjectProps) => {
 // const Project = ({ pageContext: { prev, next } }) => {
   // console.log(obj);
   // const imageFade = useSpring({ config: config.slow, delay: 800, from: { opacity: 0 }, to: { opacity: 1 } })
 
   return (
-    // <div></div>
-    // <pre>{JSON.stringify(prev)}</pre>
-    <div>{project.title}</div>
+    <Container>
+      {avatar?.childImageSharp?.gatsbyImageData &&
+        <Link to="/">
+          <GatsbyImage
+            tw="fixed top-5 left-5 z-20"
+            image={avatar.childImageSharp.gatsbyImageData} alt="Avatar" />
+        </Link>
+      }
+      {
+        images.nodes.map((image, index) => (
+          index == 0 ?
+            <Cover title={project.title} slug={project.slug} cover={project.cover} /> :
+            <GatsbyImage image={image.childImageSharp.gatsbyImageData} alt="" />
+        ))
+      }
+    </Container>
+
 
     // <Layout>
     //   <SEO
@@ -118,11 +141,14 @@ export const query = graphql`
       areas
       cover {
         childImageSharp {
-          resize(width: 800, quality: 90) {
-            src
-          }
+          gatsbyImageData(width: 1600, quality: 90)
         }
       }
     }
+    avatar: file(name: { eq: "avatar" }) {
+      childImageSharp {
+        gatsbyImageData(layout: FIXED, width: 120, height: 120, quality: 100)
+      }
+    }
   }
-`
+`;
