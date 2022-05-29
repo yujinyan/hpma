@@ -1,9 +1,10 @@
-import { graphql, useStaticQuery } from "gatsby";
-import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
+import { graphql} from "gatsby";
+import { IGatsbyImageData } from "gatsby-plugin-image";
 import * as React from "react";
 import tw from "twin.macro";
 import Hero from "../components/hero";
 import Cover from "../components/cover";
+import Avatar from "../components/avatar";
 
 type Props = {
   data: {
@@ -18,59 +19,30 @@ type Props = {
         }
       }[]
     }
-    avatar: {
-      childImageSharp: {
-        gatsbyImageData: IGatsbyImageData
+  }
+}
+
+const Gallery = ({ data }: Props) => (
+  <div tw="relative">
+    <Hero />
+    <Avatar />
+    <div tw="grid grid-cols-1 md:grid-cols-2">
+      {
+        data.allProject.nodes.map(p =>
+            <Cover key={p.slug} cover={p.cover} slug={p.slug} title={p.title} />
+          // <div key={p.slug}>
+          //   <GatsbyImage image={p.cover.childImageSharp.gatsbyImageData}
+          //                objectFit="cover"
+          //                objectPosition="center center"
+          //                tw="aspect-[4/3] w-full"
+          //                alt={p.title} />
+          // </div>
+        )
+
       }
-    }
-  }
-}
-type AvatarStaticQuery = {
-  file: {
-    childImageSharp: {
-      gatsbyImageData: IGatsbyImageData
-    }
-  }
-}
-
-const Gallery = ({ data }: Props) => {
-  // const avatar = useStaticQuery<AvatarStaticQuery>(graphql`
-  //   query {
-  //     file(name: { eq: "avatar" }) {
-  //       childImageSharp {
-  //         gatsbyImageData(layout: FIXED, width: 40, height: 40, quality: 100)
-  //       }
-  //     }
-  //   }
-  // `);
-  return (
-    <div tw="relative">
-      <Hero />
-      <div>
-        {data.avatar?.childImageSharp?.gatsbyImageData && (
-          <GatsbyImage
-            tw="absolute top-5 left-5"
-            image={data.avatar.childImageSharp.gatsbyImageData} alt="Avatar" />
-        )}
-      </div>
-      <div tw="grid grid-cols-1 md:grid-cols-2">
-        {
-          data.allProject.nodes.map(p =>
-              <Cover key={p.slug} cover={p.cover} slug={p.slug} title={p.title} />
-            // <div key={p.slug}>
-            //   <GatsbyImage image={p.cover.childImageSharp.gatsbyImageData}
-            //                objectFit="cover"
-            //                objectPosition="center center"
-            //                tw="aspect-[4/3] w-full"
-            //                alt={p.title} />
-            // </div>
-          )
-
-        }
-      </div>
     </div>
-  );
-};
+  </div>
+);
 
 const Button = tw.button`
   bg-blue-500 hover:bg-blue-800 text-white p-2 rounded
@@ -87,11 +59,6 @@ export const query = graphql`
             gatsbyImageData(width: 683, height: 512, quality: 90)
           }
         }
-      }
-    }
-    avatar: file(name: { eq: "avatar" }) {
-      childImageSharp {
-        gatsbyImageData(layout: FIXED, width: 120, height: 120, quality: 100)
       }
     }
   }

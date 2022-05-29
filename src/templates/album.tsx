@@ -3,6 +3,7 @@ import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import { graphql, Link } from "gatsby";
 import Cover from "../components/cover";
 import tw from "twin.macro";
+import Avatar from "../components/avatar";
 
 type ProjectProps = {
   data: {
@@ -26,11 +27,6 @@ type ProjectProps = {
           gatsbyImageData: IGatsbyImageData
         }
       }[]
-    }
-    avatar: {
-      childImageSharp: {
-        gatsbyImageData: IGatsbyImageData
-      }
     }
   }
   pageContext: {
@@ -65,25 +61,20 @@ type ProjectProps = {
 const Container = tw.div``;
 
 
-const Project = ({ data: { project, images, avatar }, pageContext: { prev, next } }: ProjectProps) => {
+const Project = ({ data: { project, images }, pageContext: { prev, next } }: ProjectProps) => {
 // const Project = ({ pageContext: { prev, next } }) => {
   // console.log(obj);
   // const imageFade = useSpring({ config: config.slow, delay: 800, from: { opacity: 0 }, to: { opacity: 1 } })
 
   return (
     <Container>
-      {avatar?.childImageSharp?.gatsbyImageData &&
-        <Link to="/">
-          <GatsbyImage
-            tw="fixed top-5 left-5 z-20"
-            image={avatar.childImageSharp.gatsbyImageData} alt="Avatar" />
-        </Link>
-      }
+      <Link to="/"><Avatar /></Link>
       {
         images.nodes.map((image, index) => (
           index == 0 ?
-            <Cover title={project.title} slug={project.slug} cover={project.cover} /> :
-            <GatsbyImage image={image.childImageSharp.gatsbyImageData} alt="" />
+            <Cover key={image.name} title={project.title} slug={project.slug} cover={image} /> :
+            <GatsbyImage key={image.name} image={image.childImageSharp.gatsbyImageData} alt="" />
+
         ))
       }
     </Container>
@@ -143,11 +134,6 @@ export const query = graphql`
         childImageSharp {
           gatsbyImageData(width: 1600, quality: 90)
         }
-      }
-    }
-    avatar: file(name: { eq: "avatar" }) {
-      childImageSharp {
-        gatsbyImageData(layout: FIXED, width: 120, height: 120, quality: 100)
       }
     }
   }

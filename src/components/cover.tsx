@@ -21,6 +21,12 @@ const TopBorder = tw(HorizontalBorder)`top-0`;
 const RightBorder = tw(VerticalBorder)`right-0`;
 const BottomBorder = tw(HorizontalBorder)`bottom-0`;
 
+const Title = tw.h2`
+font-display absolute 
+left-0 right-0 bottom-[20px] w-full 
+text-white text-center text-2xl lg:text-4xl
+`;
+
 /**
  * Inspired by https://www.wizardingworld.com
  */
@@ -46,7 +52,7 @@ const Cover = ({ title, cover, slug }: Props) => <div key={slug} tw="relative">
                  tw="aspect-[4/3] w-full"
                  alt={title} />
     <GradientOverlay />
-    <h2 tw="font-display absolute left-0 right-0 bottom-[20px] w-full text-white text-center text-4xl">{title}</h2>
+    <Title>{title}</Title>
   </Link>
 </div>;
 
