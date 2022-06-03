@@ -68,9 +68,8 @@ const Project = ({ data: { project, images }, pageContext: { prev, next } }: Pro
 
   return (
     <Container>
-      <Link to="/" tw="fixed left-4 top-4 z-20 w-24">
+      <Link to="/" tw="fixed left-2.5 top-2.5 z-20 w-16 md:w-24">
         <StaticImage placeholder="none" src="../images/btn_prev.png" alt="back"/>
-        {/*<span tw="font-display">Back</span>*/}
       </Link>
       {
         images.nodes.map((image, index) => (

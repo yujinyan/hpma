@@ -1,6 +1,8 @@
+/** @jsx jsx */
 import { graphql } from "gatsby";
 import { IGatsbyImageData, StaticImage } from "gatsby-plugin-image";
 import * as React from "react";
+import { jsx } from '@emotion/react'
 import tw from "twin.macro";
 import Hero from "../components/hero";
 import Cover from "../components/cover";
@@ -21,6 +23,7 @@ type Props = {
     }
   }
 }
+
 
 const Footer = (props: { isFullSpan?: boolean }) => {
   const isFullSpan = props.isFullSpan ?? false;
