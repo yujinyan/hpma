@@ -1,5 +1,5 @@
 import * as React from "react";
-import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
+import { GatsbyImage, IGatsbyImageData, StaticImage } from "gatsby-plugin-image";
 import { graphql, Link } from "gatsby";
 import Cover from "../components/cover";
 import tw from "twin.macro";
@@ -68,7 +68,10 @@ const Project = ({ data: { project, images }, pageContext: { prev, next } }: Pro
 
   return (
     <Container>
-      <Link to="/"><Avatar /></Link>
+      <Link to="/" tw="fixed left-4 top-4 z-20 w-24">
+        <StaticImage placeholder="none" src="../images/btn_prev.png" alt="back"/>
+        {/*<span tw="font-display">Back</span>*/}
+      </Link>
       {
         images.nodes.map((image, index) => (
           index == 0 ?

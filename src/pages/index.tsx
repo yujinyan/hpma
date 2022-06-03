@@ -4,7 +4,6 @@ import * as React from "react";
 import tw from "twin.macro";
 import Hero from "../components/hero";
 import Cover from "../components/cover";
-import Avatar from "../components/avatar";
 import { AnimatedBorder } from "../components/animated-border";
 
 type Props = {
@@ -23,41 +22,42 @@ type Props = {
   }
 }
 
-const Footer = (props) => <div tw="relative" {...props}>
-  <AnimatedBorder />
-  <div tw="z-20 w-32 md:w-56" className="absolute-center">
-    <StaticImage src="../images/avatar.png" tw="mb-1" alt=""/>
-    <StaticImage src="../images/name.png" alt="" />
-  </div>
-  <StaticImage src="../images/hogwarts-lake-bg.jpg" layout="fullWidth" alt="" />
-</div>;
-
-const Gallery = ({ data }: Props) => (
-  <div tw="relative">
-    <Hero />
-    <StaticImage
-      tw="absolute top-1 left-2 w-1/5"
-      src="../images/hpma.png"
-      // width="250"
-      placeholder="none"
-      alt="Harry Potter Magic Awakened" />
-    <div tw="grid grid-cols-1 md:grid-cols-2">
-      {
-        data.allProject.nodes.map(p =>
-            <Cover key={p.slug} cover={p.cover} slug={p.slug} title={p.title} />
-          // <div key={p.slug}>
-          //   <GatsbyImage image={p.cover.childImageSharp.gatsbyImageData}
-          //                objectFit="cover"
-          //                objectPosition="center center"
-          //                tw="aspect-[4/3] w-full"
-          //                alt={p.title} />
-          // </div>
-        )
-      }
-      <Footer key="footer" tw="md:col-span-2" />
+const Footer = (props: { isFullSpan?: boolean }) => {
+  const isFullSpan = props.isFullSpan ?? false;
+  return <div css={[tw`relative`, isFullSpan && tw`md:col-span-2`]} {...props}>
+    <AnimatedBorder />
+    <div tw="z-20 w-32 md:w-40" className="absolute-center">
+      <StaticImage placeholder="none" src="../images/avatar.png" tw="mb-1" alt="" />
+      <StaticImage placeholder="none" src="../images/name.png" alt="" />
     </div>
-  </div>
-);
+    <StaticImage
+      css={[!isFullSpan && tw`aspect-[4/3] w-full`]}
+      src="../images/hogwarts-lake-bg.jpg" objectFit="cover" alt="" />
+  </div>;
+};
+
+const Gallery = ({ data }: Props) => {
+  const projects = data.allProject.nodes;
+  return (
+    <div tw="relative">
+      <Hero />
+      <StaticImage
+        tw="absolute top-1 left-2 w-1/5"
+        src="../images/hpma.png"
+        // width="250"
+        placeholder="none"
+        alt="Harry Potter Magic Awakened" />
+      <div tw="grid grid-cols-1 md:grid-cols-2">
+        {
+          projects.map(p =>
+              <Cover key={p.slug} cover={p.cover} slug={p.slug} title={p.title} />
+          )
+        }
+        <Footer isFullSpan={projects.length % 2 == 0} key="footer"/>
+      </div>
+    </div>
+  );
+};
 
 const Button = tw.button`
   bg-blue-500 hover:bg-blue-800 text-white p-2 rounded
