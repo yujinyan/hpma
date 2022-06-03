@@ -6,7 +6,7 @@ const OutfitContainer = tw.div`absolute bottom-0`;
 
 
 const Hero = () => <div tw="relative">
-  <StaticImage src="../images/hufflepuff_bg.jpg" alt="" />
+  <StaticImage src="../images/hufflepuff_bg.jpg" layout="fullWidth" alt="" />
   <StaticImage
     placeholder="none"
     tw="absolute bottom-0 z-20 h-5/6 left-1/2"

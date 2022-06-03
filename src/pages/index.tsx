@@ -1,10 +1,11 @@
-import { graphql} from "gatsby";
-import { IGatsbyImageData } from "gatsby-plugin-image";
+import { graphql } from "gatsby";
+import { IGatsbyImageData, StaticImage } from "gatsby-plugin-image";
 import * as React from "react";
 import tw from "twin.macro";
 import Hero from "../components/hero";
 import Cover from "../components/cover";
 import Avatar from "../components/avatar";
+import { AnimatedBorder } from "../components/animated-border";
 
 type Props = {
   data: {
@@ -22,10 +23,24 @@ type Props = {
   }
 }
 
+const Footer = (props) => <div tw="relative" {...props}>
+  <AnimatedBorder />
+  <div tw="z-20 w-32 md:w-56" className="absolute-center">
+    <StaticImage src="../images/avatar.png" tw="mb-1" alt=""/>
+    <StaticImage src="../images/name.png" alt="" />
+  </div>
+  <StaticImage src="../images/hogwarts-lake-bg.jpg" layout="fullWidth" alt="" />
+</div>;
+
 const Gallery = ({ data }: Props) => (
   <div tw="relative">
     <Hero />
-    <Avatar />
+    <StaticImage
+      tw="absolute top-1 left-2 w-1/5"
+      src="../images/hpma.png"
+      // width="250"
+      placeholder="none"
+      alt="Harry Potter Magic Awakened" />
     <div tw="grid grid-cols-1 md:grid-cols-2">
       {
         data.allProject.nodes.map(p =>
@@ -38,8 +53,8 @@ const Gallery = ({ data }: Props) => (
           //                alt={p.title} />
           // </div>
         )
-
       }
+      <Footer key="footer" tw="col-span-2" />
     </div>
   </div>
 );

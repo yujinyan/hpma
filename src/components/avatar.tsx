@@ -3,7 +3,7 @@ import tw from "twin.macro";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import { graphql, useStaticQuery } from "gatsby";
 
-const Avatar = tw(GatsbyImage)`fixed top-0 left-0 m-4 z-20 w-12 md:w-24`;
+const Avatar = tw(GatsbyImage)`m-4 z-20`;
 
 type AvatarStaticQuery = {
   file: {
