@@ -54,7 +54,7 @@ const Gallery = ({ data }: Props) => (
           // </div>
         )
       }
-      <Footer key="footer" tw="col-span-2" />
+      <Footer key="footer" tw="md:col-span-2" />
     </div>
   </div>
 );
