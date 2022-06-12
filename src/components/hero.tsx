@@ -6,7 +6,6 @@ import tw from "twin.macro";
 import { jsx } from "@emotion/react";
 import { graphql, useStaticQuery } from "gatsby";
 import { useSwipeable } from "react-swipeable";
-import { setFeedbackDisabledValue } from "gatsby/dist/utils/feedback";
 
 const OutfitContainer = tw.div`absolute bottom-0`;
 // const Dot = ({ isActive }) => tw.li`bg-white opacity-50 m-0`;
@@ -47,7 +46,7 @@ const Outfits = () => {
       <Line />
       {
         outfits.allFile.nodes.map((_, idx) =>
-          <Dot isActive={idx == active} />)
+          <Dot key={idx} isActive={idx == active} />)
       }
     </div>
     <div{...swipeable} onClick={() => {
@@ -63,9 +62,10 @@ const Outfits = () => {
             image={x.childImageSharp.gatsbyImageData}
             // tw="absolute bottom-0 z-20 h-5/6 left-1/2"
             css={[
-              tw`absolute bottom-0 z-20 h-5/6 left-1/2 transition-opacity`,
+              tw`absolute bottom-0 z-20 h-5/6 left-1/2 transition-opacity drop-shadow-lg`,
               active == idx ? tw`opacity-100` : tw`opacity-0`]
             }
+            imgClassName="drop-shadow-lg"
             objectFit="contain"
             objectPosition="left bottom"
             alt="" />
