@@ -62,7 +62,7 @@ const Outfits = () => {
             key={x.id}
             image={x.image.childImageSharp.gatsbyImageData}
             css={[
-              tw`absolute bottom-0 z-20 h-5/6 left-1/2 transition-opacity drop-shadow-2xl`,
+              tw`absolute bottom-0 z-20 h-5/6 left-1/2 transition-opacity drop-shadow-xl`,
               { left: x.left ?? "50%" },
               active == idx ? tw`opacity-100` : tw`opacity-0`]
             }
