@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GatsbyImage, IGatsbyImageData, StaticImage } from "gatsby-plugin-image";
 import tw from "twin.macro";
 import { jsx } from "@emotion/react";
@@ -18,22 +18,23 @@ const Dot = ({ isActive }) => (
 const Line = tw.div`h-[1px] bg-white opacity-20 w-[25vw] mr-8`;
 
 const Outfits = () => {
-  const outfits = useStaticQuery<OutfitsStaticQuery>(graphql`{
-  allFile(filter: {name: {glob: "outfit*"}}) {
+  const outfits = useStaticQuery<OutfitsStaticQuery>(graphql`
+  {
+  allOutfit {
     nodes {
-      name
-      childImageSharp {
-        gatsbyImageData(placeholder:NONE)
+      id
+      left
+      image {
+        childImageSharp {
+          gatsbyImageData(placeholder:NONE)
+        }
       }
     }
   }
-}`);
+}
+  `);
 
-  // const [counter, setCounter] = useState(0);
-  // const active = counter % outfits.allFile.nodes.length;
-
-  const N = outfits.allFile.nodes.length;
-
+  const N = outfits.allOutfit.nodes.length;
   const [active, setActive] = useState(0);
   const swipeable = useSwipeable({
     onSwipedLeft: () => setActive(x => Math.min(N - 1, x + 1)),
@@ -45,7 +46,7 @@ const Outfits = () => {
     <div tw="bottom-0  md:m-5 h-[32px] flex items-center absolute z-20 ">
       <Line />
       {
-        outfits.allFile.nodes.map((_, idx) =>
+        outfits.allOutfit.nodes.map((_, idx) =>
           <Dot key={idx} isActive={idx == active} />)
       }
     </div>
@@ -56,13 +57,13 @@ const Outfits = () => {
       });
     }}>
       {
-        outfits.allFile.nodes.map((x, idx) =>
+        outfits.allOutfit.nodes.map((x, idx) =>
           <GatsbyImage
-            key={x.name}
-            image={x.childImageSharp.gatsbyImageData}
-            // tw="absolute bottom-0 z-20 h-5/6 left-1/2"
+            key={x.id}
+            image={x.image.childImageSharp.gatsbyImageData}
             css={[
-              tw`absolute bottom-0 z-20 h-5/6 left-1/2 transition-opacity drop-shadow-lg`,
+              tw`absolute bottom-0 z-20 h-5/6 left-1/2 transition-opacity drop-shadow-2xl`,
+              { left: x.left ?? "50%" },
               active == idx ? tw`opacity-100` : tw`opacity-0`]
             }
             imgClassName="drop-shadow-lg"
@@ -78,26 +79,23 @@ const Outfits = () => {
 
 const Hero = () => {
   return <div tw="relative">
-    <Outfits></Outfits>
+    <Outfits />
     <StaticImage
       objectFit="cover"
       tw="aspect-[4/3] lg:aspect-video"
       src="../images/hufflepuff-bg-optimized.jpeg"
       alt="" />
-    {/*<StaticImage*/}
-    {/*  placeholder="none"*/}
-    {/*  tw="absolute bottom-0 z-20 h-5/6 left-1/2"*/}
-    {/*  objectFit="contain"*/}
-    {/*  objectPosition="left bottom"*/}
-    {/*  src="../../content/assets/outfits/outfit-4.png" alt="" />*/}
   </div>;
 };
 
 type OutfitsStaticQuery = {
-  allFile: {
+  allOutfit: {
     nodes: {
-      name: string
-      childImageSharp: { gatsbyImageData: IGatsbyImageData }
+      id: string
+      left: string | undefined
+      image: {
+        childImageSharp: { gatsbyImageData: IGatsbyImageData }
+      }
     }[]
   }
 }

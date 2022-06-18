@@ -17,6 +17,12 @@ module.exports = {
             },
         },
         {
+            resolve: `gatsby-transformer-csv`,
+            options: {
+                typeName: ({ node }) => node.name.charAt(0).toUpperCase() + node.name.slice(1),
+            },
+        },
+        {
             resolve: `gatsby-source-filesystem`,
             options: {
                 name: assetsPath,
