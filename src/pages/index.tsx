@@ -32,6 +32,9 @@ const Footer = (props: { isFullSpan?: boolean }) => {
     <div tw="z-20 w-32 md:w-40" className="absolute-center">
       <StaticImage placeholder="none" src="../images/avatar.png" tw="mb-1" alt="" />
       <StaticImage placeholder="none" src="../images/name.png" alt="" />
+      <div tw="m-auto text-center font-display">
+        <a href="https://github.com/yujinyan/hpma" tw="no-underline text-white">GitHub</a>
+      </div>
     </div>
     <StaticImage
       css={[!isFullSpan && tw`aspect-[4/3] w-full`]}
