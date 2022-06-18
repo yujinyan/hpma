@@ -75,7 +75,7 @@ const Project = ({ data: { project, images }, pageContext: { prev, next } }: Pro
         images.nodes.map((image, index) => (
           index == 0 ?
             <Cover key={image.name} title={project.title} slug={project.slug} cover={image} /> :
-            <GatsbyImage key={image.name} image={image.childImageSharp.gatsbyImageData} alt="" />
+            <GatsbyImage tw="w-full" key={image.name} image={image.childImageSharp.gatsbyImageData} alt="" />
 
         ))
       }

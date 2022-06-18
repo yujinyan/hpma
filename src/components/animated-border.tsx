@@ -1,7 +1,7 @@
 import * as React from "react";
 import tw from "twin.macro";
 
-const Border = tw.span`bg-slate-50 z-10 absolute opacity-50`;
+const Border = tw.span`bg-slate-50 z-10 absolute opacity-40`;
 const HorizontalBorder = tw(Border)`w-full h-px left-0`;
 const VerticalBorder = tw(Border)`h-full w-px top-0`;
 const LeftBorder = tw(VerticalBorder)`left-0`;

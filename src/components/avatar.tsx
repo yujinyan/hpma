@@ -27,7 +27,6 @@ export default (props) => {
   return avatar?.file?.childImageSharp?.gatsbyImageData && (
     <Avatar image={avatar.file.childImageSharp.gatsbyImageData} alt="Avatar" {...props} />
   );
-  // return <Avatar image={avatar} alt="" {...props} />;
 }
 
 

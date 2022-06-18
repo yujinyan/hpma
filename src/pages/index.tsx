@@ -2,8 +2,8 @@
 import { graphql } from "gatsby";
 import { IGatsbyImageData, StaticImage } from "gatsby-plugin-image";
 import * as React from "react";
-import { jsx } from '@emotion/react'
-import tw from "twin.macro";
+import { jsx } from "@emotion/react";
+import tw, { GlobalStyles } from "twin.macro";
 import Hero from "../components/hero";
 import Cover from "../components/cover";
 import { AnimatedBorder } from "../components/animated-border";
@@ -32,6 +32,9 @@ const Footer = (props: { isFullSpan?: boolean }) => {
     <div tw="z-20 w-32 md:w-40" className="absolute-center">
       <StaticImage placeholder="none" src="../images/avatar.png" tw="mb-1" alt="" />
       <StaticImage placeholder="none" src="../images/name.png" alt="" />
+      <div tw="m-auto text-center font-display">
+        <a href="https://github.com/yujinyan/hpma" tw="no-underline text-white">GitHub</a>
+      </div>
     </div>
     <StaticImage
       css={[!isFullSpan && tw`aspect-[4/3] w-full`]}
@@ -43,6 +46,8 @@ const Gallery = ({ data }: Props) => {
   const projects = data.allProject.nodes;
   return (
     <div tw="relative">
+      {/*https://github.com/ben-rogerson/twin.macro/issues/590*/}
+      <GlobalStyles />
       <Hero />
       <StaticImage
         tw="absolute top-1 left-2 w-1/5"
@@ -53,10 +58,10 @@ const Gallery = ({ data }: Props) => {
       <div tw="grid grid-cols-1 md:grid-cols-2">
         {
           projects.map(p =>
-              <Cover key={p.slug} cover={p.cover} slug={p.slug} title={p.title} />
+            <Cover key={p.slug} cover={p.cover} slug={p.slug} title={p.title} />
           )
         }
-        <Footer isFullSpan={projects.length % 2 == 0} key="footer"/>
+        <Footer isFullSpan={projects.length % 2 == 0} key="footer" />
       </div>
     </div>
   );
