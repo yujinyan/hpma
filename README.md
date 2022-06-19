@@ -8,10 +8,10 @@
 </h1>
 
 <p align="center">
-   <img src="mockup/iPhone.webp" alt="iPhone 13 Pro Mockup">
+   <img src="mockup/iPhone.png" alt="iPhone 13 Pro Mockup">
 </p>
 
-I love the art-style if HPMA, so I made a website for hosting pictures taken by the in-game camera.
+I love the art style if HPMA, so I made a website for hosting pictures taken by the in-game camera.
 
 Developed with [Gatsby.js](https://www.gatsbyjs.com), hosted on [vercel](https://vercel.com).
 
