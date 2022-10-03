@@ -3,10 +3,10 @@ const assetsPath = `content/assets`
 module.exports = {
 
     siteMetadata: {
-        title: `Gatsby Default Starter`,
-        description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-        author: `@gatsbyjs`,
-        siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+        title: `鱼鱼魔法觉醒`,
+        description: `鱼鱼 - Harry Potter Magic Awakened`,
+        author: `@yujinyan92`,
+        siteUrl: `https://hp.yujinyan.me`,
     },
     plugins: [
         {
@@ -50,8 +50,8 @@ module.exports = {
         {
             resolve: `gatsby-plugin-manifest`,
             options: {
-                name: `gatsby-starter-default`,
-                short_name: `starter`,
+                name: `鱼鱼魔法觉醒`,
+                short_name: `HPMA`,
                 start_url: `/`,
                 background_color: `#3e2e1f`,
                 // This will impact how browsers show your PWA/website
